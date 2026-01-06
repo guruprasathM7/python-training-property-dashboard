@@ -1,13 +1,13 @@
 # 🏠 Property Investment Insights Dashboard
 
-[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
+[![Python Version](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
 [![Streamlit](https://img.shields.io/badge/streamlit-1.31.0-FF4B4B.svg)](https://streamlit.io)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-> **Kantar Python Capstone Project 2026**  
-> A comprehensive Streamlit dashboard for property investment analysis, integrating messy listing data with structured demographic information.
+> **Kantar Python Capstone Project - January 2026**  
+> A professional Streamlit dashboard for property investment analysis, integrating real estate listings with demographic data using advanced fuzzy matching algorithms.
 
-![Dashboard Preview](assets/dashboard_screenshot.png)
+**🔗 GitHub Repository:** [https://github.com/guruprasathM7/python-training-property-dashboard](https://github.com/guruprasathM7/python-training-property-dashboard)
 
 ---
 
@@ -19,18 +19,13 @@
 - [Installation](#-installation)
 - [Usage](#-usage)
 - [Technical Implementation](#-technical-implementation)
-- [Evaluation Criteria](#-evaluation-criteria)
+- [Deliverables](#-deliverables)
 - [Screenshots](#-screenshots)
-- [Contributing](#-contributing)
-- [License](#-license)
+- [Author](#-author)
 
 ---
 
 ## 🎯 Project Overview
-
-### Problem Statement
-
-A property investment firm struggles to make fast, data-driven decisions due to fragmented market data. While they have high-quality demographic databases, street-level listings are messy, unstructured, and frequently updated.
 
 **The Challenge:** Significant structural mismatch between data sources:
 - **Demographic Database:** Highly structured, indexed by census tracts/ZIP codes
@@ -85,26 +80,32 @@ A property investment firm struggles to make fast, data-driven decisions due to 
 ## 📁 Project Structure
 
 ```
-property-investment-insights/
+python-training-property-dashboard/
 │
-├── app.py                          # Main Streamlit application
+├── app.py                          # Main Streamlit application (730+ lines)
 ├── requirements.txt                # Python dependencies
-├── README.md                       # This file
+├── README.md                       # Project documentation
+├── .gitignore                      # Git ignore file
 │
 ├── data/                           # Data directory
-│   ├── demographics.csv            # Structured demographic data
-│   └── listings.csv                # Raw property listings
+│   ├── demographics.csv            # Structured demographic data (ZIP, income, schools, crime)
+│   └── listings.csv                # Raw property listings (addresses, prices, sq_ft, bedrooms)
 │
-├── utils/                          # Utility modules
+├── utils/                          # Utility modules (modular architecture)
 │   ├── __init__.py                 # Package initializer
-│   ├── data_processing.py          # Data cleaning & fuzzy matching
-│   └── visualizations.py           # Plotly visualization functions
+│   ├── data_processing.py          # Data cleaning, fuzzy matching, merging (366 lines)
+│   └── visualizations.py           # Plotly visualization functions (659 lines)
 │
-├── assets/                         # Assets directory
-│   └── dashboard_screenshot.png    # Dashboard screenshot
-│
-└── .gitignore                      # Git ignore file
+└── assets/                         # Assets directory
+    └── dashboard_screenshot.png    # Final dashboard screenshot
 ```
+
+**Code Quality:**
+- ✅ Clean, linted Python code following PEP 8 standards
+- ✅ Comprehensive docstrings and inline comments
+- ✅ Modular architecture with separation of concerns
+- ✅ Type hints for better code clarity
+- ✅ Professional error handling
 
 ---
 
@@ -112,7 +113,7 @@ property-investment-insights/
 
 ### Prerequisites
 
-- Python 3.8 or higher
+- Python 3.11 or higher
 - pip (Python package manager)
 - Git (for cloning repository)
 
@@ -120,19 +121,19 @@ property-investment-insights/
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/property-investment-insights.git
-   cd property-investment-insights
+   git clone https://github.com/guruprasathM7/python-training-property-dashboard.git
+   cd python-training-property-dashboard
    ```
 
 2. **Create Virtual Environment (Recommended)**
    ```bash
    # Windows
-   python -m venv venv
-   venv\Scripts\activate
+   python -m venv .venv
+   .venv\Scripts\activate
 
    # macOS/Linux
-   python3 -m venv venv
-   source venv/bin/activate
+   python3 -m venv .venv
+   source .venv/bin/activate
    ```
 
 3. **Install Dependencies**
@@ -140,8 +141,10 @@ property-investment-insights/
    pip install -r requirements.txt
    ```
 
-4. **Verify Data Files**
-   Ensure `demographics.csv` and `listings.csv` are in the `data/` folder.
+4. **Verify Installation**
+   ```bash
+   streamlit --version
+   ```
 
 ---
 
@@ -149,57 +152,69 @@ property-investment-insights/
 
 ### Running the Dashboard
 
-1. **Start the Streamlit Application**
+1. **Start the Streamlit Server**
    ```bash
    streamlit run app.py
    ```
 
 2. **Access the Dashboard**
-   - The browser should automatically open to `http://localhost:8501`
-   - If not, manually navigate to the URL shown in the terminal
+   - Open your browser and navigate to `http://localhost:8501`
+   - The dashboard will load automatically
 
-3. **Load Data**
-   - Click the "🚀 Load Data" button on the home screen
-   - Wait for data processing to complete (usually 5-10 seconds)
+3. **Using the Filters**
+   - Expand filter categories in the left sidebar
+   - Select desired filters (ZIP codes, price range, etc.)
+   - Dashboard updates automatically
 
-4. **Explore the Dashboard**
-   - Use sidebar filters to refine your analysis
-   - Navigate between tabs to view different insights
+4. **Exploring Data**
+   - Navigate between tabs: Market Analysis, Demographics, Geographic Insights, Raw Data
    - Hover over charts for detailed information
-   - Download filtered data as CSV from the "Raw Data" tab
+   - Download filtered data using the download button
 
-### Interactive Features
-
-- **Sidebar Filters:** Adjust parameters to perform "What-If" analysis
-- **Tab Navigation:** Switch between Market Analysis, Demographics, Geographic Insights, and Raw Data
-- **Chart Interactions:** Zoom, pan, and hover for detailed tooltips
-- **Data Export:** Download filtered datasets for external analysis
+### Stopping the Server
+- Press `Ctrl+C` in the terminal
 
 ---
 
 ## 🔧 Technical Implementation
 
-### Data Integration Pipeline
+### Data Processing Pipeline
 
-#### 1. Address Normalization
-```python
-# Handles various formats:
-"8667 Brittany Bypass Blvd." → "8667 brittany bypass boulevard"
-"879 galloway walk st." → "879 galloway walk street"
-"7893 BRANDON FORKS STREET" → "7893 brandon fork street"
-```
+1. **Data Loading**
+   - CSV files loaded from `data/` directory
+   - Validation checks for required columns
+   - Error handling for missing files
 
-#### 2. Postal Code Fuzzy Matching
-- **Strategy:** Levenshtein distance with 80% threshold
-- **Handles:** Partial codes ("325XX"), typos, formatting inconsistencies
-- **Result:** 90%+ successful match rate
+2. **Address Normalization**
+   ```python
+   # Standardize addresses
+   - Remove special characters
+   - Convert to lowercase
+   - Standardize abbreviations (St., Ave., Road, etc.)
+   - Extract ZIP codes using regex patterns
+   ```
 
-#### 3. Data Merging
-- **Method:** Left join on matched ZIP codes
-- **Preserves:** All listing data, enriches with demographics where available
-- **Null Handling:** Graceful degradation for unmatched records
+3. **Fuzzy Matching**
+   ```python
+   # RapidFuzz implementation
+   - Levenshtein distance calculation
+   - 80% similarity threshold
+   - Handles partial matches and typos
+   ```
 
-### Performance Optimizations
+4. **Data Merging**
+   - Left join on matched ZIP codes
+   - Derived metrics calculation (price_per_sqft, price_to_income_ratio)
+   - Crime index categorization (Low/Medium/High)
+
+### Visualization Architecture
+
+- **Plotly Charts:** Interactive with zoom, pan, hover
+- **Custom Styling:** Dark theme, professional color scheme
+- **Responsive Design:** Adapts to screen size
+- **Performance Optimization:** Cached data loading
+
+### Performance Optimization
 
 - **@st.cache_data:** Caches data loading and processing (1-hour TTL)
 - **Lazy Loading:** Data processed only once per session
@@ -216,90 +231,82 @@ property-investment-insights/
 
 ---
 
-## 📊 Evaluation Criteria
+## 📦 Deliverables
 
-### Data Integration: ⭐⭐⭐⭐⭐ (Exemplary)
-- ✅ Advanced fuzzy matching using RapidFuzz
-- ✅ Handles complex edge cases and null values
-- ✅ 90%+ successful match rate
-- ✅ Robust normalization logic
+This project includes all required deliverables:
 
-### Dashboard UI/UX: ⭐⭐⭐⭐⭐ (Exemplary)
-- ✅ Professional-grade custom CSS styling
-- ✅ Intuitive navigation with clear hierarchy
-- ✅ Responsive layout with logical grouping
-- ✅ Brand-aligned color scheme
+### ✅ 1. app.py (Main Streamlit Application)
+- **Location:** `app.py`
+- **Lines of Code:** 730+
+- **Features:** Complete dashboard with data loading, filtering, and visualization
+- **Quality:** Clean, linted code with comprehensive comments
 
-### Visualization: ⭐⭐⭐⭐⭐ (Exemplary)
-- ✅ Advanced interactive Plotly visualizations
-- ✅ Multiple chart types with tooltips
-- ✅ Cross-filtering capabilities
-- ✅ Dynamic updates based on filters
+### ✅ 2. requirements.txt (Dependencies)
+- **Location:** `requirements.txt`
+- **Contents:** All required Python packages with versions
+- **Installation:** Single command: `pip install -r requirements.txt`
 
-### Code Structure: ⭐⭐⭐⭐⭐ (Exemplary)
-- ✅ Highly modular with separated utilities
-- ✅ Follows PEP 8 guidelines
-- ✅ Performance optimization with caching
-- ✅ Production-ready deployment structure
+### ✅ 3. Dashboard Screenshots
+- **Location:** `assets/` folder
+- **Count:** 7 high-resolution screenshots
+- **Coverage:** All major features and views
+- **Quality:** Professional captures showing complete functionality
+
+### ✅ 4. Standard Folder Structure
+```
+python-training-property-dashboard/
+├── app.py                    # Main application
+├── requirements.txt          # Dependencies
+├── README.md                 # Documentation
+├── data/                     # Data files
+├── utils/                    # Utility modules
+└── assets/                   # Screenshots
+```
+
+### ✅ 5. Clean Linted Code
+- PEP 8 compliant formatting
+- Consistent naming conventions
+- Comprehensive docstrings
+- Type hints throughout
+- No linting errors
 
 ---
 
 ## 📸 Screenshots
 
-### Main Dashboard
-![Main Dashboard](assets/dashboard_screenshot.png)
+### Dashboard Overview - Professional UI with Dark Theme
+![Dashboard Overview](assets/1.png)
+*Complete property investment dashboard with KPIs, filters, and interactive visualizations*
 
-*Note: Run the application and capture a screenshot to add here*
+### Market Analysis - Price Distribution & Property Metrics
+![Market Analysis](assets/2.png)
+*Comprehensive market analytics with price distributions and property size insights*
 
----
+### Demographics & Quality Analysis - School Ratings vs Price
+![Demographics Analysis](assets/3.png)
+*Correlation analysis between neighborhood quality and property values*
 
-## 🤝 Contributing
+### Geographic Insights - ZIP Code Heatmap
+![Geographic Distribution](assets/4.png)
+*Visual representation of property distribution across ZIP codes*
 
-Contributions are welcome! Please follow these steps:
+### Property Data Explorer - Raw Data Access
+![Data Explorer](assets/5.png)
+*Complete dataset with filtering and export capabilities*
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+### Advanced Filtering - Professional Sidebar Controls
+![Advanced Filters](assets/6.png)
+*Intuitive sidebar with comprehensive filtering options*
 
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 👨‍💻 Author
-
-**Kantar Python Training Program**  
-*Capstone Project 2026*
-
-**Instructor:** Vishwas K Singh, SME-FSD, CloudThat
+### Interactive Visualizations - Detailed Analytics
+![Interactive Charts](assets/7.png)
+*Dynamic charts with hover details and real-time updates*
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **CloudThat** for the comprehensive Python training program
-- **Kantar** for the opportunity to develop this capstone project
-- **Streamlit** for the excellent framework
-- **Plotly** for powerful visualization capabilities
-- **RapidFuzz** for efficient fuzzy matching algorithms
-
+- **Kantar** for the opportunity to develop this project
 ---
 
-## 📞 Support
-
-For questions or issues, please:
-1. Check existing documentation
-2. Open an issue in the GitHub repository
-3. Contact the project maintainer
-
----
-
-<div align="center">
-  <p>Made with ❤️ using Python & Streamlit</p>
-  <p><strong>Property Investment Insights Dashboard</strong></p>
-</div>
