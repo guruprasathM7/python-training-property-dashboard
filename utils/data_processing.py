@@ -325,17 +325,6 @@ class DataProcessor:
         # Merge data
         merged_df = self.merge_data(listings_matched, demographics_clean)
 
-        # Calculate match success rate
-        total_records = len(merged_df)
-        matched_records = merged_df['matched_zip_code'].notna().sum()
-        match_rate = (matched_records / total_records * 100) if total_records > 0 else 0
-
-        st.sidebar.metric(
-            "Data Match Rate",
-            f"{match_rate:.1f}%",
-            help="Percentage of listings successfully matched to demographic data"
-        )
-
         self.merged_df = merged_df
         return merged_df
 
