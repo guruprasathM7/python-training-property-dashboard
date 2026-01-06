@@ -16,10 +16,6 @@
 - [📸 Dashboard Screenshots](#-dashboard-screenshots)
 - [✨ Key Features](#-key-features)
 - [📊 Data Processing](#-data-processing)
-- [👨‍💻 Author](#-author)
-- [📄 License](#-license)
-- [🙏 Acknowledgments](#-acknowledgments)
-
 ---
 
 ## 🎯 Overview
