@@ -7,6 +7,21 @@
 
 ---
 
+## 📋 Table of Contents
+
+- [🎯 Overview](#-overview)
+- [🚀 Quick Start](#-quick-start)
+- [📦 Deliverables](#-deliverables)
+- [⚙️ Technical Stack](#️-technical-stack)
+- [📸 Dashboard Screenshots](#-dashboard-screenshots)
+- [✨ Key Features](#-key-features)
+- [📊 Data Processing](#-data-processing)
+- [👨‍💻 Author](#-author)
+- [📄 License](#-license)
+- [🙏 Acknowledgments](#-acknowledgments)
+
+---
+
 ## 🎯 Overview
 
 Interactive dashboard integrating real estate listings with demographic data, resolving inconsistent address formats through fuzzy matching algorithms to provide actionable investment insights.
